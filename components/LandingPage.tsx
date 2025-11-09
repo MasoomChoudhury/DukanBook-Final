@@ -308,7 +308,8 @@ const LandingPage: React.FC = () => {
               DukanBook is a modern, AI-enabled billing and bookkeeping platform built specifically for small and medium businesses. It simplifies day-to-day financial operations that shop owners struggle with—creating invoices, managing customer dues, tracking expenses, updating ledgers, and staying on top of payments.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 mt-5 shrink-0">
-              <a prefetch={true} href="https://business.coinkaro.in/login">
+              {/* FIX: Removed invalid 'prefetch' prop from <a> tag. */}
+              <a href="https://business.coinkaro.in/login">
                 <div className="text-neutral-200 bg-transparent px-0 w-fit flex items-center gap-2">
                   <div className="flex items-center gap-2">Business login</div>
                   <svg xmlns="http://www.w3.org/2000/svg" className="-rotate-45 h-6" viewBox="0 0 24 24">
