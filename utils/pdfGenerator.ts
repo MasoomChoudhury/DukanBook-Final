@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import type { Invoice, BusinessProfile } from '../types';
+import { notoSansBase64 } from './noto-sans-font';
 
 // Helper function to convert numbers to Indian currency words
 const numberToWords = (num: number): string => {
@@ -48,6 +49,12 @@ const numberToWords = (num: number): string => {
 
 export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessProfile) => {
     const doc = new jsPDF();
+
+    // Add the custom font to support Indian Rupee Symbol and other characters
+    doc.addFileToVFS('NotoSans-Regular.ttf', notoSansBase64);
+    doc.addFont('NotoSans-Regular.ttf', 'NotoSans', 'normal');
+    doc.addFont('NotoSans-Regular.ttf', 'NotoSans', 'bold');
+    doc.setFont('NotoSans');
     
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 15;
@@ -56,7 +63,7 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     // --- Header ---
     doc.setFillColor(primaryColor);
     doc.rect(0, 0, pageWidth, 30, 'F');
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.setFontSize(22);
     doc.setTextColor(255, 255, 255);
     doc.text('INVOICE', pageWidth - margin, 20, { align: 'right' });
@@ -66,7 +73,7 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     doc.setFontSize(16);
     doc.text(businessProfile.name, margin, 45);
 
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.setFontSize(10);
     doc.text(businessProfile.address, margin, 52);
     doc.text(`GSTIN: ${businessProfile.gstin}`, margin, 58);
@@ -74,12 +81,12 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     
     // --- Invoice Details (Top Right) ---
     const rightColX = pageWidth / 2 + 20;
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.text('Invoice #:', rightColX, 45);
     doc.text('Issue Date:', rightColX, 52);
     doc.text('Due Date:', rightColX, 59);
     
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.text(invoice.invoiceNumber, rightColX + 30, 45);
     doc.text(new Date(invoice.issueDate).toLocaleDateString(), rightColX + 30, 52);
     doc.text(new Date(invoice.dueDate).toLocaleDateString(), rightColX + 30, 59);
@@ -88,11 +95,11 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     doc.setDrawColor(200);
     doc.line(margin, 75, pageWidth - margin, 75); 
     
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.setTextColor(100);
     doc.text('BILL TO', margin, 85);
     doc.setTextColor(0);
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.setFontSize(11);
     doc.text(invoice.client.name, margin, 92);
     doc.setFontSize(10);
@@ -113,8 +120,8 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
             `${itemName}\n${item.description || ''}`,
             item.product.hsnSacCode,
             item.quantity,
-            `Rs. ${item.price.toFixed(2)}`,
-            `Rs. ${(item.quantity * item.price).toFixed(2)}`
+            `₹ ${item.price.toFixed(2)}`,
+            `₹ ${(item.quantity * item.price).toFixed(2)}`
         ];
     });
 
@@ -123,8 +130,9 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
         body: tableBody,
         startY: 120,
         theme: 'striped',
-        headStyles: { fillColor: [19, 150, 86] },
+        headStyles: { fillColor: [19, 150, 86], font: 'NotoSans' },
         styles: {
+            font: 'NotoSans',
             cellPadding: 3, 
             fontSize: 10, 
             valign: 'middle' 
@@ -142,9 +150,9 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     
     // Amount in Words
     doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.text('Amount in Words:', margin, finalY);
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.text(numberToWords(invoice.total), margin, finalY + 5, { maxWidth: pageWidth / 2 - margin });
 
     // --- Totals Box (Recalculated for better alignment) ---
@@ -160,20 +168,20 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
 
     let currentY = finalY;
     doc.setFontSize(11);
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     
     doc.text('Subtotal:', labelX, currentY);
-    doc.text(`Rs. ${invoice.subtotal.toFixed(2)}`, valueX, currentY, { align: 'right' });
+    doc.text(`₹ ${invoice.subtotal.toFixed(2)}`, valueX, currentY, { align: 'right' });
     currentY += 7;
 
     if (invoice.sgst > 0) {
         doc.text('SGST:', labelX, currentY);
-        doc.text(`Rs. ${invoice.sgst.toFixed(2)}`, valueX, currentY, { align: 'right' });
+        doc.text(`₹ ${invoice.sgst.toFixed(2)}`, valueX, currentY, { align: 'right' });
         currentY += 7;
     }
     if (invoice.cgst > 0) {
         doc.text('CGST:', labelX, currentY);
-        doc.text(`Rs. ${invoice.cgst.toFixed(2)}`, valueX, currentY, { align: 'right' });
+        doc.text(`₹ ${invoice.cgst.toFixed(2)}`, valueX, currentY, { align: 'right' });
         currentY += 7;
     }
 
@@ -183,7 +191,7 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     doc.setFontSize(14);
     doc.setTextColor(primaryColor);
     doc.text('Total:', labelX, currentY + 3);
-    doc.text(`Rs. ${invoice.total.toFixed(2)}`, valueX, currentY + 3, { align: 'right' });
+    doc.text(`₹ ${invoice.total.toFixed(2)}`, valueX, currentY + 3, { align: 'right' });
     doc.setTextColor(0);
 
 
@@ -194,14 +202,14 @@ export const generateInvoicePDF = (invoice: Invoice, businessProfile: BusinessPr
     doc.line(margin, footerY, pageWidth - margin, footerY); 
     
     doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.text('Terms & Conditions', margin, footerY + 8);
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.text('1. Payment is due within 15 days.', margin, footerY + 13);
     
-    doc.setFont(undefined, 'bold');
+    doc.setFont('NotoSans', 'bold');
     doc.text('Bank Details', rightColX, footerY + 8);
-    doc.setFont(undefined, 'normal');
+    doc.setFont('NotoSans', 'normal');
     doc.text('Bank: Your Bank Name, IFSC: YOURIFSC', rightColX, footerY + 13);
     
     doc.setFontSize(10);
