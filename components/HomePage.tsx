@@ -8,6 +8,7 @@ import InventoryScanner from './InventoryScanner';
 import Reports from './Reports';
 import ExpenseList from './ExpenseList';
 import PaymentList from './PaymentList';
+import BusinessProfileSettings from './BusinessProfileSettings';
 import type { View } from '../types';
 import { useData } from '../context/DataContext';
 
@@ -33,6 +34,8 @@ const HomePage: React.FC = () => {
                 return <ExpenseList />;
             case 'payments':
                 return <PaymentList />;
+            case 'settings':
+                return <BusinessProfileSettings />;
             default:
                 return <Dashboard />;
         }
