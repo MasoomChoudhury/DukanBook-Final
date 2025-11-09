@@ -516,7 +516,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const updateBusinessProfile = async (profile: BusinessProfile) => {
         if (!user) throw new Error("User not authenticated");
-        await db.collection('users').doc(user.uid).update({ businessProfile: profile });
+        // FIX: Use .set with merge:true instead of .update.
+        // This ensures that the document is created if it doesn't exist,
+        // preventing an error when a user tries to save their profile for the first time
+        // and their user document hasn't been created yet.
+        await db.collection('users').doc(user.uid).set({ businessProfile: profile }, { merge: true });
         setBusinessProfile(profile);
     };
 
