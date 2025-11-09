@@ -1,11 +1,16 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIReport } from "../types";
 
+// Use the user-provided Vercel environment variable, falling back to the AI Studio default.
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
+
 export const generateDescription = async (itemName: string): Promise<string> => {
-    // FIX: Removed check for process.env.API_KEY as per coding guidelines.
-    // The environment variable is assumed to be configured.
+    if (!GEMINI_API_KEY) {
+        console.error("Gemini API Key not configured.");
+        return "Error: API Key not set.";
+    }
     try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
         const result = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: `Write a brief, professional description for an invoice item named '${itemName}'. Keep it under 15 words.`,
@@ -18,8 +23,11 @@ export const generateDescription = async (itemName: string): Promise<string> => 
 };
 
 export const extractProductsFromInvoice = async (base64Image: string, mimeType: string) => {
+    if (!GEMINI_API_KEY) {
+        throw new Error("Gemini API Key not configured. Please set the GEMINI_API_KEY environment variable in your deployment settings.");
+    }
     try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
         const imagePart = {
             inlineData: {
                 data: base64Image,
@@ -67,8 +75,11 @@ export const generateBusinessAnalysis = async (
     invoicesJson: string,
     expensesJson: string
 ): Promise<AIReport> => {
+    if (!GEMINI_API_KEY) {
+        throw new Error("Gemini API Key not configured. Please set the GEMINI_API_KEY environment variable in your deployment settings.");
+    }
     try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
         const prompt = `
             You are an expert business analyst AI for a small retail store in India. 
