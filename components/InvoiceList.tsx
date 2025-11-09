@@ -43,8 +43,8 @@ const InvoiceList: React.FC = () => {
     };
 
     const handleGeneratePDF = (invoice: Invoice, profile: BusinessProfile | null) => {
-        if (!profile) {
-            alert("Business profile is not loaded yet. Please wait.");
+        if (!profile || profile.gstin === "YOUR_GSTIN_HERE") {
+            alert("Please complete your business profile in the Settings page before generating a PDF.");
             return;
         }
         try {
@@ -134,7 +134,15 @@ const InvoiceList: React.FC = () => {
                                     <td className="px-6 py-4">{new Date(invoice.issueDate).toLocaleDateString()}</td>
                                     <td className="px-6 py-4 flex items-center space-x-2">
                                         {invoice.status !== 'Paid' && <Button variant="primary" onClick={() => handleAddPayment(invoice)} className="text-xs px-3 py-1">Add Payment</Button>}
-                                        <Button variant="secondary" onClick={() => handleGeneratePDF(invoice, businessProfile)} disabled={!businessProfile} className="text-xs px-3 py-1">PDF</Button>
+                                        <Button 
+                                            variant="secondary" 
+                                            onClick={() => handleGeneratePDF(invoice, businessProfile)} 
+                                            disabled={!businessProfile || businessProfile.gstin === 'YOUR_GSTIN_HERE'}
+                                            title={!businessProfile || businessProfile.gstin === 'YOUR_GSTIN_HERE' ? "Please complete your Business Profile in Settings first" : "Generate PDF"}
+                                            className="text-xs px-3 py-1"
+                                        >
+                                            PDF
+                                        </Button>
                                         <Button variant="secondary" onClick={() => handleEditInvoice(invoice)} className="p-2" aria-label="Edit Invoice">
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>
                                         </Button>
