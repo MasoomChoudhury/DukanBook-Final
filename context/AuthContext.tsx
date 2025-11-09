@@ -1,17 +1,18 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import { auth } from '../firebaseConfig';
 
+// FIX: Replaced `User` from 'firebase/auth' with `firebase.User`.
+// The project uses the Firebase compat library where the User type is namespaced.
 interface AuthContextType {
-    user: User | null;
+    user: firebase.User | null;
     loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<firebase.User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
