@@ -1,0 +1,7 @@
+{
+  "name": "DukanBook",
+  "description": "DukanBook is a modern, user-friendly billing and invoicing software for Indian small businesses. It simplifies invoice creation, payment tracking, and inventory management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

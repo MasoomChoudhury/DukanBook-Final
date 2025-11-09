@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DukanBook - Your Digital Business Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              "50": "#f0fdf7",
+              "100": "#dcfceb",
+              "200": "#bbf7d6",
+              "300": "#86efb9",
+              "400": "#4ae198",
+              "500": "#22d780",
+              "600": "#16b868",
+              "700": "#139656",
+              "800": "#147847",
+              "900": "#12623b",
+              "950": "#0a3721"
+            },
+            red: {
+              "50": "#fff8f5",
+              "100": "#ffefe6",
+              "200": "#feddc9",
+              "300": "#fcc5a6",
+              "400": "#fba97d",
+              "500": "#f99f70",
+              "600": "#f7844d",
+              "700": "#f46328",
+              "800": "#c1491d",
+              "900": "#983c1d",
+              "950": "#511b0b"
+            }
+          }
+        }
+      }
+    }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.3.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^2.5.1",
+    "jspdf-autotable": "https://aistudiocdn.com/jspdf-autotable@^3.8.2",
+    "firebase/app": "https://aistudiocdn.com/firebase@^12.4.0/app",
+    "firebase/firestore": "https://aistudiocdn.com/firebase@^12.4.0/firestore",
+    "firebase/auth": "https://aistudiocdn.com/firebase@^12.4.0/auth",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.4.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
