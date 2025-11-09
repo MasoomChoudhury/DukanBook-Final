@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type View = 'dashboard' | 'invoices' | 'clients' | 'products' | 'scanner' | 'payments' | 'expenses' | 'reports';
+export type View = 'dashboard' | 'invoices' | 'clients' | 'products' | 'scanner' | 'payments' | 'expenses' | 'reports' | 'settings';
 
 export interface Client {
     id: string;
