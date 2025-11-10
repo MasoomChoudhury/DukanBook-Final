@@ -7,7 +7,7 @@ const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "billing-software-74d41.firebaseapp.com",
   projectId: "billing-software-74d41",
   storageBucket: "billing-software-74d41.appspot.com",
