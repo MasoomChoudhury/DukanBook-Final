@@ -3,11 +3,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
-const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
+const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: FIREBASE_API_KEY,
   authDomain: "billing-software-74d41.firebaseapp.com",
   projectId: "billing-software-74d41",
   storageBucket: "billing-software-74d41.appspot.com",
