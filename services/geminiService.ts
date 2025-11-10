@@ -1,8 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIReport } from "../types";
 
-// Use the user-provided Vercel environment variable, falling back to the AI Studio default.
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
+// The Gemini API key is securely provided by the Vercel/AI Studio environment.
+const GEMINI_API_KEY = process.env.API_KEY;
 
 export const generateDescription = async (itemName: string): Promise<string> => {
     if (!GEMINI_API_KEY) {
@@ -24,7 +24,7 @@ export const generateDescription = async (itemName: string): Promise<string> => 
 
 export const extractProductsFromInvoice = async (base64Image: string, mimeType: string) => {
     if (!GEMINI_API_KEY) {
-        throw new Error("Gemini API Key not configured. Please set the GEMINI_API_KEY environment variable in your deployment settings.");
+        throw new Error("Gemini API Key not configured. Please set the API_KEY environment variable in your deployment settings.");
     }
     try {
         const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
@@ -76,7 +76,7 @@ export const generateBusinessAnalysis = async (
     expensesJson: string
 ): Promise<AIReport> => {
     if (!GEMINI_API_KEY) {
-        throw new Error("Gemini API Key not configured. Please set the GEMINI_API_KEY environment variable in your deployment settings.");
+        throw new Error("Gemini API Key not configured. Please set the API_KEY environment variable in your deployment settings.");
     }
     try {
         const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
@@ -85,7 +85,7 @@ export const generateBusinessAnalysis = async (
             You are an expert business analyst AI for a small retail store in India. 
             Analyze the following business data. The data includes the current product inventory (tracked by variants), 
             all recent invoices (sales), and business expenses. Based on this data, provide a 
-            detailed business analysis in the required JSON format. Today's date is ${new Date().toLocaleDateString()}.
+            detailed business analysis in the required JSON format. Today's date is ${new Date().toLocaleString()}.
 
             Here is the data:
             Current Product Inventory (by variant): ${productsJson}
