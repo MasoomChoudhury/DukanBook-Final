@@ -13,10 +13,6 @@
   Modern, intelligent, and user-friendly billing software designed to empower small and medium enterprises in India. DukanBook leverages the power of Google's Gemini AI to automate tedious tasks, provide actionable insights, and streamline business operations.
 </p>
 
-<p align="center">
-  <img src="https://i.ibb.co/VcVd19s0/home-p.png" alt="DukanBook Dashboard" width="800"/>
-</p>
-
 ## 🎯 The Problem
 
 Small and medium-sized businesses (SMEs) are the backbone of the Indian economy. However, many still rely on traditional, manual methods for bookkeeping and inventory management. This leads to several challenges:
@@ -84,7 +80,7 @@ This project is built on a modern, scalable, and robust technology stack.
 | **Backend**       | **Firebase** (Firestore Database, Firebase Authentication)                                                    |
 | **AI & ML**       | **Google Gemini API** (Gemini 2.5 Flash for Vision, Text Generation, and Business Analysis)                   |
 | **PDF Generation**| **jsPDF**, **jsPDF-AutoTable**                                                                                    |
-| **Deployment**    | Deployed and tested on **Google AI Studio**                                                                     |
+| **Deployment**    | Deployed and tested on **Vercel**                                                                     |
 
 ### Architecture
 - **Component-Based UI:** Built with React for a modular and maintainable user interface.
@@ -173,9 +169,13 @@ The codebase is organized logically to promote separation of concerns and mainta
 
 This project was developed as part of our 7th-semester curriculum by:
 
-*   **[Your Name]** - [Link to your GitHub/LinkedIn]
-*   **[Teammate's Name]** - [Link to their GitHub/LinkedIn]
-
+*   **[Masoom Kumar Choudhury]** 
+*   **[Priyangsu Banerjee]**
+*   **[Rajdeep Mandal]** 
+*   **[Rahul Kumar Naik]**
+*   **[Rudra Prabhat Pattanaik]** 
+*   **[Aman Kumar Singh]**
+   
 We are proud to have built a practical, AI-driven solution that addresses real-world challenges for small businesses in India.
 
 ---
