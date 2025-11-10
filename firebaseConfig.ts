@@ -6,7 +6,7 @@ import "firebase/compat/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAfTnqhTdTsGCQQBDhJW3fbh3R87uDYSYQ",
+  apiKey: FIREBASE_API_KEY,
   authDomain: "billing-software-74d41.firebaseapp.com",
   projectId: "billing-software-74d41",
   storageBucket: "billing-software-74d41.appspot.com",
