@@ -15,19 +15,19 @@ export const createInitialProfile = async (user: { uid: string; email: string | 
             contact: user.email || "your-email@business.com",
             state: "Maharashtra"
         };
-        await userDocRef.set({ businessProfile: initialProfile });
+        await userDocRef.set({ businessProfile: initialProfile }, { merge: true });
     }
 }
 
 export const signUpWithEmail = async (email: string, password: string): Promise<void> => {
-    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    const userCredential = await auth.createUserWithEmailAndPassword(email.trim(), password.trim());
     if (userCredential.user) {
         await createInitialProfile(userCredential.user);
     }
 };
 
 export const signInWithEmail = async (email: string, password: string): Promise<void> => {
-    await auth.signInWithEmailAndPassword(email, password);
+    await auth.signInWithEmailAndPassword(email.trim(), password.trim());
 };
 
 export const signInWithGoogle = async (): Promise<void> => {
