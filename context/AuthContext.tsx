@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import firebase from 'firebase/compat/app';
 import { auth } from '../firebaseConfig';
 
-// FIX: Replaced `User` from 'firebase/auth' with `firebase.User`.
 // The project uses the Firebase compat library where the User type is namespaced.
 interface AuthContextType {
     user: firebase.User | null;

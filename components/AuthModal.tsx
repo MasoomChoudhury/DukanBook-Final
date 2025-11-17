@@ -77,8 +77,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email Address" required className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900"/>
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900"/>
+                    <input type="email" autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email Address" required className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900"/>
+                    <input type="password" autoComplete={isLogin ? "current-password" : "new-password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required className="w-full p-2 border border-gray-300 rounded bg-white text-gray-900"/>
                     {error && <p className="text-red-500 text-sm text-center">{error}</p>}
                     <Button type="submit" className="w-full" disabled={loading}>
                         {loading ? 'Processing...' : (isLogin ? 'Login' : 'Create Account')}
@@ -86,7 +86,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 </form>
                 <p className="text-center text-sm">
                     {isLogin ? "Don't have an account?" : "Already have an account?"}
-                    <button onClick={() => { setIsLogin(!isLogin); setError(''); }} className="text-primary-600 hover:underline ml-1 font-semibold">
+                    <button type="button" onClick={() => { setIsLogin(!isLogin); setError(''); }} className="text-primary-600 hover:underline ml-1 font-semibold">
                         {isLogin ? 'Sign Up' : 'Login'}
                     </button>
                 </p>
